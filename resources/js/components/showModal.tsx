@@ -3,7 +3,7 @@ import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle, DialogTr
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useForm } from '@inertiajs/react';
-import { Save } from 'lucide-react';
+import { LoaderCircle, Save } from 'lucide-react';
 import * as React from 'react';
 import { toast } from 'sonner';
 
@@ -49,25 +49,25 @@ export function ShowModal({ parent, routeName}: ShowModalProps) {
                 </DialogHeader>
 
                 <form onSubmit={handleSubmit} className="mt-2 space-y-4">
-                    <div>
+                    <div className="space-y-2">
                         <Label htmlFor="name">Nom</Label>
                         <Input id="name" value={data.name} onChange={(e) => setData('name', e.target.value)} />
                         {errors.name && <p className="text-sm text-red-500">{errors.name}</p>}
                     </div>
 
-                    <div>
+                    <div className="space-y-2">
                         <Label htmlFor="email">Email</Label>
                         <Input id="email" type="email" value={data.email} onChange={(e) => setData('email', e.target.value)} />
                         {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
                     </div>
 
-                    <div>
+                    <div className="space-y-2">
                         <Label htmlFor="password">Mot de passe</Label>
                         <Input id="password" type="password" value={data.password} onChange={(e) => setData('password', e.target.value)} />
                         {errors.password && <p className="text-sm text-red-500">{errors.password}</p>}
                     </div>
 
-                    <div>
+                    <div className='space-y-2'>
                         <Label htmlFor="password_confirmation">Confirmer le mot de passe</Label>
                         <Input
                             id="password_confirmation"
@@ -83,9 +83,14 @@ export function ShowModal({ parent, routeName}: ShowModalProps) {
                             <Button variant="outline">Annuler</Button>
                         </DialogClose>
                         <Button type="submit" disabled={processing}>
-                            <Save className="mr-2 h-4 w-4" /> Créer
+                            {processing ? (
+                                <span className='flex space-x-2 px-2'><LoaderCircle className="h-4 w-4 animate-spin" /> En cour... </span>
+                            ) : (
+                                <span className='flex space-x-2 px-2'><Save className="mr-2 h-4 w-4" /> Créer</span>
+                            )}
                         </Button>
                     </div>
+
                 </form>
             </DialogContent>
         </Dialog>
