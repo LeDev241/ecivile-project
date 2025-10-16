@@ -9,7 +9,7 @@ import { motion } from 'framer-motion';
 import { Mail, MapPin, Phone } from 'lucide-react';
 import { useState } from 'react';
 
-export default function Welcome({ auth } : SharedData) {
+export default function Welcome({ auth }: SharedData) {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
