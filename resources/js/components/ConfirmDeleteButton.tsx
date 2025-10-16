@@ -34,7 +34,9 @@ export default function ConfirmDeleteButton({ onConfirm }: ConfirmDeleteButtonPr
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>Annuler</AlertDialogCancel>
-                    <AlertDialogAction onClick={onConfirm}>Continuer</AlertDialogAction>
+                    <AlertDialogAction onClick={onConfirm} className="bg-red-500 text-white hover:bg-red-600">
+                        Continuer
+                    </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>
