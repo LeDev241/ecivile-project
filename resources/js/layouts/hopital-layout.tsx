@@ -1,6 +1,6 @@
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem, type NavItem } from '@/types';
-import { BookOpen, ChartColumnBig, FolderPlus, LayoutGrid, Plus } from 'lucide-react';
+import { ChartColumnBig, FolderPlus, LayoutGrid, MessageCircleQuestion, Plus } from 'lucide-react';
 import { ReactNode } from 'react';
 
 // Breadcrumbs par défaut pour l'admin
@@ -36,9 +36,9 @@ const footerNavItems: NavItem[] = [
         icon: ChartColumnBig,
     },
     {
-        title: 'Documentation',
+        title: 'FAQ',
         href: '#',
-        icon: BookOpen,
+        icon: MessageCircleQuestion,
     },
 ];
 

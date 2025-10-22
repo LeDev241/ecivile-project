@@ -6,7 +6,6 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import HopitalLayout from '@/layouts/hopital-layout';
 import { Head, useForm } from '@inertiajs/react';
 import { Save } from 'lucide-react';
-import { Switch } from '@/components/ui/switch';
 
 // Fonction pour générer un code NUIN
 const generateNuins = () => {
@@ -23,7 +22,6 @@ const formatPrenom = (value: string) =>
     .join(' ');
 
 export default function Index() {
-
   const today = new Date().toISOString().split('T')[0];
 
   const { data, setData, post, processing, errors } = useForm({
@@ -32,7 +30,7 @@ export default function Index() {
     prenom_enfant: '',
     code_nuin: generateNuins(),
     date_naissance: today,
-    date_option: 'today',  
+    date_option: 'today',
     sexe: 'masculin',
     lieu_naissance: '',
 
@@ -123,7 +121,7 @@ export default function Index() {
                         checked={data.date_option === 'manual'}
                         onChange={() => {
                           setData('date_option', 'manual');
-                          setData('date_naissance', ''); 
+                          setData('date_naissance', '');
                         }}
                       />
                       <span>Choisir manuellement</span>
@@ -313,6 +311,7 @@ export default function Index() {
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div>
                 <Label htmlFor="acte_naissance_pere">Acte de naissance du père</Label>
+                <span className="text-sm text-gray-500">Le document doit avoir une taille maximal de 1Mo</span>
                 <Input
                   id="acte_naissance_pere"
                   type="file"
@@ -323,6 +322,7 @@ export default function Index() {
               </div>
               <div>
                 <Label htmlFor="acte_naissance_mere">Acte de naissance de la mère</Label>
+                <span className="text-sm text-gray-500">Le document doit avoir une taille maximal de 1Mo</span>
                 <Input
                   id="acte_naissance_mere"
                   type="file"
