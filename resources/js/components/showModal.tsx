@@ -84,9 +84,9 @@ export function ShowModal({ parent, routeName}: ShowModalProps) {
                         </DialogClose>
                         <Button type="submit" disabled={processing}>
                             {processing ? (
-                                <span className='flex space-x-2 px-2'><LoaderCircle className="h-4 w-4 animate-spin" /> En cour... </span>
+                                <span className='flex gap-2'><LoaderCircle className="h-4 w-4 animate-spin" /> En cour... </span>
                             ) : (
-                                <span className='flex space-x-2 px-2'><Save className="mr-2 h-4 w-4" /> Créer</span>
+                                <span className='flex gap-2'><Save className="mr-2 h-4 w-4" /> Créer</span>
                             )}
                         </Button>
                     </div>
