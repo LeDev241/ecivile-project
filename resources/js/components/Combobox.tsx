@@ -16,9 +16,12 @@ const Combobox: React.FC<ComboboxProps> = ({ options, value, onChange, placehold
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        // Si la valeur est vide et que la liste correspond aux nationalités
-        if (!value && options.includes('Gabonaise')) {
-            onChange('Gabonaise');
+        if (!value) {
+            if (options.includes('Gabonaise')) {
+                onChange('Gabonaise');
+            } else if (options.includes('Libreville')) {
+                onChange('Libreville');
+            }
         }
     }, [value, onChange, options]);
 
@@ -40,7 +43,7 @@ const Combobox: React.FC<ComboboxProps> = ({ options, value, onChange, placehold
         <div className="relative" ref={containerRef}>
             <Input
                 type="text"
-                value={value || (options.includes('Gabonaise') ? 'Gabonaise' : '')}
+                value={value || (options.includes('Gabonaise') ? 'Gabonaise' : options.includes('Libreville') ? 'Libreville' : '')}
                 onFocus={() => setIsOpen(true)}
                 onChange={(e) => {
                     setQuery(e.target.value);
