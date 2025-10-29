@@ -22,13 +22,8 @@ Route::get('/', function () {
     return Inertia::render('welcome');
 })->name('home');
 
+Route::post('/', [ContactController::class, 'submit'])->name('contact.submit');
 
-Route::prefix('contact')->group(function () {
-    Route::get('/', function () {
-        return Inertia::render('contact');
-    })->name('contact');
-    Route::post('/', [ContactController::class, 'submit'])->name('contact.submit');
-});
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {

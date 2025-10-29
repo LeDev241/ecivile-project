@@ -1,54 +1,76 @@
 import { ImageWithFallback } from '@/components/ImageWithFallback';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { SharedData } from '@/types';
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import { CheckCircle, Clock, FileText, Shield } from 'lucide-react';
+import { useState } from 'react';
+
+const features = [
+    {
+        icon: <FileText className="h-12 w-12 text-primary" />,
+        title: 'Déclaration simplifiée',
+        description: 'Remplissez votre déclaration de naissance en quelques minutes grâce à notre interface intuitive.',
+    },
+    {
+        icon: <Shield className="h-12 w-12 text-primary" />,
+        title: 'Sécurisé et conforme',
+        description: 'Vos données sont protégées et notre système respecte toutes les réglementations en vigueur.',
+    },
+    {
+        icon: <Clock className="h-12 w-12 text-primary" />,
+        title: 'Disponible 24h/24',
+        description: "Effectuez vos démarches à tout moment, depuis chez vous ou depuis n'importe où.",
+    },
+
+    {
+        icon: <CheckCircle className="h-12 w-12 text-primary" />,
+        title: 'Traitement rapide',
+        description: "Votre dossier est traité rapidement par les services de l'état civil compétents.",
+    },
+];
+
+const steps = [
+    {
+        step: '1',
+        title: 'Connexion',
+        description: 'Connectez vous en quelques clics',
+    },
+    {
+        step: '2',
+        title: 'Remplissez le formulaire',
+        description: 'Saisissez les informations de votre login',
+    },
+    {
+        step: '3',
+        title: 'Votre espace',
+        description: 'Acceder à votre tableau de bord et vos fonctions',
+    },
+];
 
 export default function Welcome() {
     const { auth } = usePage<SharedData>().props;
-    const features = [
-        {
-            icon: <FileText className="h-12 w-12 text-primary" />,
-            title: 'Déclaration simplifiée',
-            description: 'Remplissez votre déclaration de naissance en quelques minutes grâce à notre interface intuitive.',
-        },
-        {
-            icon: <Shield className="h-12 w-12 text-primary" />,
-            title: 'Sécurisé et conforme',
-            description: 'Vos données sont protégées et notre système respecte toutes les réglementations en vigueur.',
-        },
-        {
-            icon: <Clock className="h-12 w-12 text-primary" />,
-            title: 'Disponible 24h/24',
-            description: "Effectuez vos démarches à tout moment, depuis chez vous ou depuis n'importe où.",
-        },
 
-        {
-            icon: <CheckCircle className="h-12 w-12 text-primary" />,
-            title: 'Traitement rapide',
-            description: "Votre dossier est traité rapidement par les services de l'état civil compétents.",
-        },
-    ];
+    const { data, setData, post, processing, errors, reset } = useForm({
+        email: '',
+        message: '',
+    });
 
-    const steps = [
-        {
-            step: '1',
-            title: 'Connexion',
-            description: 'Connectez vous en quelques clics',
-        },
-        {
-            step: '2',
-            title: 'Remplissez le formulaire',
-            description: 'Saisissez les informations de votre login',
-        },
-        {
-            step: '3',
-            title: 'Votre espace',
-            description: 'Acceder à votre tableau de bord et vos fonctions',
-        },
-    ];
+
+    const [isSent, setIsSent] = useState(false)
+    const submit = (e: React.FormEvent) => {
+        e.preventDefault()
+        post(route('contact.submit'), {
+            onSuccess: () => {
+                setIsSent(true);
+                reset();
+            },
+        });
+    }
 
     return (
         <div className="min-h-screen bg-background">
@@ -77,7 +99,7 @@ export default function Welcome() {
                                 <a href="#how-it-works" className="transition-colors hover:text-black">
                                     Comment ça marche
                                 </a>
-                                <Link href={route('contact')} className="transition-colors hover:text-black">
+                                <Link href="#contact" className="transition-colors hover:text-black">
                                     Nous contacter
                                 </Link>
                             </div>
@@ -259,7 +281,7 @@ export default function Welcome() {
             </section>
 
             {/* CTA Section */}
-            <section className="bg-primary py-20 text-white">
+            <section className="bg-primary py-20 text-white" id="contact">
                 <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
                     <motion.div
                         initial={{ y: 50, opacity: 0 }}
@@ -267,19 +289,46 @@ export default function Welcome() {
                         transition={{ duration: 0.6 }}
                         viewport={{ once: true }}
                     >
-                        <h2 className="mb-4 text-3xl lg:text-4xl">Prêt à déclarer votre enfant ?</h2>
-                        <p className="mx-auto mb-8 max-w-2xl text-xl text-blue-100">
-                            Rejoignez des milliers de familles qui ont fait confiance à notre plateforme pour leurs démarches de déclaration de
-                            naissance.
-                        </p>
-                        <div className="flex flex-col justify-center gap-4 sm:flex-row">
-                            <Button size="lg" variant="secondary" className="px-8 py-6 text-lg" asChild>
-                                <Link href={'login'}>Commencer maintenant</Link>
+                        <h2 className="mb-4 text-3xl lg:text-4xl">Nous contacter</h2>
+                        {isSent && (
+                            <p className="rounded-md bg-green-50 p-4 text-green-700 dark:bg-green-900/20 dark:text-green-300">
+                                Votre message a été soumit avec succès
+                            </p>
+                        )}
+
+                        <form onSubmit={submit} className="mx-auto mt-12 max-w-2xl space-y-4">
+                            <div className="space-y-2">
+                                <Label htmlFor="email">Email</Label>
+                                <Input
+                                    id="email"
+                                    type="email"
+                                    placeholder="Entrez votre email"
+                                    value={data.email}
+                                    onChange={(e) => setData('email', e.target.value)}
+                                    required
+                                />
+                                {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email}</p>}
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="message">Votre message</Label>
+                                <Textarea
+                                    id="message"
+                                    placeholder="Ecrivez votre message ici..."
+                                    value={data.message}
+                                    onChange={(e) => setData('message', e.target.value)}
+                                    className="h-32"
+                                    required
+                                />
+                                {errors.message && <div className="mt-1 text-sm text-red-500">{errors.message}</div>}
+                            </div>
+                            <Button
+                                type="submit"
+                                disabled={processing}
+                                className="text-md mt-2 w-full cursor-pointer rounded-none bg-white text-primary hover:bg-gray-200"
+                            >
+                                {processing ? 'Envoi en cours...' : 'Envoyer le message'}
                             </Button>
-                            <Button variant="outline" className="border-white px-8 py-6 text-lg text-white hover:bg-white hover:text-primary" asChild>
-                                <Link href={route('contact')}>Nous contacter</Link>
-                            </Button>
-                        </div>
+                        </form>
                     </motion.div>
                 </div>
             </section>
