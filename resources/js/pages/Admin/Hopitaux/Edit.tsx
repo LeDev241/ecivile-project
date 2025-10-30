@@ -1,3 +1,4 @@
+import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -6,8 +7,6 @@ import { Textarea } from '@/components/ui/textarea';
 import AdminLayout from '@/layouts/admin-layout';
 import { Head, useForm } from '@inertiajs/react';
 import { Save } from 'lucide-react';
-
-
 
 export default function Edit({ hopital, mairies }) {
     const { data, setData, put, processing, errors } = useForm({
@@ -30,81 +29,76 @@ export default function Edit({ hopital, mairies }) {
             <Head title={`Modifier ${hopital.nom}`} />
 
             <div className="container mx-auto px-4 py-8">
-                <h3 className="mb-4 text-lg font-semibold text-gray-800 dark:text-white">Modifer : {hopital.nom}</h3>
+                <h3 className="mb-4 text-lg font-semibold text-primary">Modifer : {hopital.nom}</h3>
 
                 <form onSubmit={submit} className="space-y-4">
                     <div className="grid gap-4 sm:grid-cols-2">
-                        <div>
+                        <div className="space-y-2">
                             <Label htmlFor="nom">Nom</Label>
-                            <Input
-                                id="nom"
-                                type="text"
-                                value={data.nom}
-                                onChange={(e) => setData('nom', e.target.value)}
-                                className="mt-1 block w-full"
-                            />
-                            {errors.nom && <div className="mt-1 text-red-500">{errors.nom}</div>}
+                            <Input id="nom" type="text" value={data.nom} onChange={(e) => setData('nom', e.target.value)} className="rounded-none" />
+                            <InputError message={errors.nom} />
                         </div>
-                        <div>
+                        <div className="space-y-2">
                             <Label htmlFor="telephone_principal">Téléphone principal</Label>
                             <Input
                                 id="telephone_principal"
                                 type="text"
                                 value={data.telephone_principal}
                                 onChange={(e) => setData('telephone_principal', e.target.value)}
-                                className="mt-1 block w-full"
+                                className="rounded-none"
                             />
-                            {errors.telephone_principal && <div className="mt-1 text-red-500">{errors.telephone_principal}</div>}
+
+                            <InputError message={errors.telephone_principal} />
                         </div>
-                    </div>
-                    <div className="grid gap-4 sm:grid-cols-2">
-                        <div>
+
+                        <div className="space-y-2">
                             <Label htmlFor="email">Email</Label>
                             <Input
                                 id="email"
                                 type="email"
                                 value={data.email}
                                 onChange={(e) => setData('email', e.target.value)}
-                                className="mt-1 block w-full"
+                                className="rounded-none"
                             />
-                            {errors.email && <div className="mt-1 text-red-500">{errors.email}</div>}
+                            <InputError message={errors.email} />
                         </div>
-                        <div>
+                        <div className="space-y-2">
                             <Label htmlFor="type_etablissement">Type d'établissement</Label>
                             <Select onValueChange={(value) => setData('type_etablissement', value)} value={data.type_etablissement}>
-                                <SelectTrigger className="mt-1 w-full">
+                                <SelectTrigger className="rounded-none">
                                     <SelectValue placeholder="Sélectionnez un type" />
                                 </SelectTrigger>
-                                <SelectContent>
+                                <SelectContent className="rounded-none">
                                     <SelectItem value="hopital_general">Hôpital général</SelectItem>
                                     <SelectItem value="clinique">Clinique</SelectItem>
                                     <SelectItem value="centre_medical">Centre médical</SelectItem>
                                     <SelectItem value="hopital_specialise">Hôpital spécialisé</SelectItem>
                                 </SelectContent>
                             </Select>
-                            {errors.type_etablissement && <div className="mt-1 text-red-500">{errors.type_etablissement}</div>}
+
+                            <InputError message={errors.type_etablissement} />
                         </div>
-                    </div>
-                    <div className="grid gap-4 sm:grid-cols-2">
-                        <div>
+
+                        <div className="space-y-2">
                             <Label htmlFor="adresse_complete">Adresse complète</Label>
                             <Input
                                 id="adresse_complete"
                                 type="text"
                                 value={data.adresse_complete}
                                 onChange={(e) => setData('adresse_complete', e.target.value)}
-                                className="mt-1 block w-full"
+                                className="rounded-none"
                             />
-                            {errors.adresse_complete && <div className="mt-1 text-red-500">{errors.adresse_complete}</div>}
+
+                            <InputError message={errors.adresse_complete} />
                         </div>
 
-                        <div>
+                        <div className="space-y-2">
                             <Label htmlFor="mairie_id">Mairie de rattachement</Label>
                             <Select onValueChange={(value) => setData('mairie_id', value)} value={data.mairie_id}>
-                                <SelectTrigger className="mt-1 w-full">
+                                <SelectTrigger className="rounded-none">
                                     <SelectValue placeholder="Sélectionnez une mairie" />
                                 </SelectTrigger>
-                                <SelectContent>
+                                <SelectContent className="rounded-none">
                                     {mairies.map((mairie) => (
                                         <SelectItem key={mairie.id} value={mairie.id}>
                                             {mairie.nom}
@@ -112,23 +106,23 @@ export default function Edit({ hopital, mairies }) {
                                     ))}
                                 </SelectContent>
                             </Select>
-                            {errors.mairie_id && <div className="mt-1 text-red-500">{errors.mairie_id}</div>}
+                            <InputError message={errors.mairie_id} />
                         </div>
                     </div>
 
-                    <div>
+                    <div className="space-y-2">
                         <Label htmlFor="description_courte">Description courte</Label>
                         <Textarea
                             id="description_courte"
                             value={data.description_courte}
                             onChange={(e) => setData('description_courte', e.target.value)}
-                            className="mt-1 block w-full"
+                            className="rounded-none"
                         />
-                        {errors.description_courte && <div className="mt-1 text-red-500">{errors.description_courte}</div>}
+                        <InputError message={errors.description_courte} />
                     </div>
 
                     <div className="mb-8 flex justify-end">
-                        <Button type="submit" disabled={processing} className="w-full sm:w-[200px]">
+                        <Button type="submit" disabled={processing} className="w-full bg-blue-600 hover:bg-blue-700 sm:w-[200px]">
                             <Save className="mr-2 h-4 w-4" />
                             Enregistrer
                         </Button>

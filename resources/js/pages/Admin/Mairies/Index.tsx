@@ -39,19 +39,19 @@ export default function Index({ mairies, flash }: IndexProps) {
         <AdminLayout>
             <Head title="Gestion des Mairies" />
 
-            <div className="flex flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
+            <div className="flex flex-1 flex-col gap-4 overflow-x-auto p-4">
                 <div className="h-auto overflow-hidden rounded-xl border border-sidebar-border/70 p-4 md:min-h-min dark:border-sidebar-border">
-                    <h3 className="mb-4 text-lg font-semibold text-gray-800 dark:text-white">Gestionnaires des mairies</h3>
-                    <Link href={route('admin.mairies.create')}>
-                        <Button>
+                    <h3 className="mb-4 text-lg font-semibold text-primary">Gestionnaires des mairies</h3>
+                    <Button asChild>
+                        <Link href={route('admin.mairies.create')}>
                             <Plus />
                             Créer une nouvelle mairies
-                        </Button>
-                    </Link>
+                        </Link>
+                    </Button>
                 </div>
                 <div className="space-y-2">
                     <div className="flex flex-wrap items-center justify-between">
-                        <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Liste des mairies</h3>
+                        <h3 className="text-lg font-semibold text-primary">Liste des mairies</h3>
                         <div className="flex flex-wrap gap-2">
                             <Button variant={view === 'table' ? 'default' : 'outline'} size="icon" onClick={() => setView('table')}>
                                 <TableIcon className="h-4 w-4" />

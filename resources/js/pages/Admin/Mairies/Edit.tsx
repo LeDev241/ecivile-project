@@ -21,7 +21,7 @@ export default function Edit({ mairie, communes, provinces, arrondissements }: P
         code_postal: mairie.code_postal || '',
     });
 
-    const submit = (e) => {
+    const submit = (e:React.FormEvent) => {
         e.preventDefault();
         put(route('admin.mairies.update', mairie.id));
     };
@@ -40,65 +40,59 @@ export default function Edit({ mairie, communes, provinces, arrondissements }: P
                 <form onSubmit={submit} className="space-y-4 p-4">
                     <div className="grid gap-4 sm:grid-cols-2">
                         {/* Nom */}
-                        <div>
+                        <div className="space-y-2">
                             <Label htmlFor="nom">Nom</Label>
-                            <Input
-                                id="nom"
-                                type="text"
-                                value={data.nom}
-                                onChange={(e) => setData('nom', e.target.value)}
-                                className="mt-1 block w-full"
-                            />
+                            <Input id="nom" type="text" value={data.nom} onChange={(e) => setData('nom', e.target.value)} className="rounded-none" />
                             {errors.nom && <div className="mt-1 text-red-500">{errors.nom}</div>}
                         </div>
 
                         {/* Téléphone */}
-                        <div>
+                        <div className="space-y-2">
                             <Label htmlFor="telephone_principal">Téléphone principal</Label>
                             <Input
                                 id="telephone_principal"
                                 type="text"
                                 value={data.telephone_principal}
                                 onChange={(e) => setData('telephone_principal', e.target.value)}
-                                className="mt-1 block w-full"
+                                className="rounded-none"
                             />
                             {errors.telephone_principal && <div className="mt-1 text-red-500">{errors.telephone_principal}</div>}
                         </div>
 
                         {/* Email */}
-                        <div>
+                        <div className="space-y-2">
                             <Label htmlFor="email">Email</Label>
                             <Input
                                 id="email"
                                 type="email"
                                 value={data.email}
                                 onChange={(e) => setData('email', e.target.value)}
-                                className="mt-1 block w-full"
+                                className="rounded-none"
                             />
                             {errors.email && <div className="mt-1 text-red-500">{errors.email}</div>}
                         </div>
 
                         {/* Code postal */}
-                        <div>
+                        <div className="space-y-2">
                             <Label htmlFor="code_postal">Code postal</Label>
                             <Input
                                 id="code_postal"
                                 type="text"
                                 value={data.code_postal}
                                 onChange={(e) => setData('code_postal', e.target.value)}
-                                className="mt-1 block w-full"
+                                className="rounded-none"
                             />
                             {errors.code_postal && <div className="mt-1 text-red-500">{errors.code_postal}</div>}
                         </div>
 
                         {/* Province */}
-                        <div>
+                        <div className="space-y-2">
                             <Label>Province</Label>
                             <Select value={data.province_id} onValueChange={(value) => setData('province_id', value)}>
-                                <SelectTrigger>
+                                <SelectTrigger className="rounded-none">
                                     <SelectValue placeholder="Choisir une province" />
                                 </SelectTrigger>
-                                <SelectContent>
+                                <SelectContent className="rounded-none">
                                     {provinces.map((p) => (
                                         <SelectItem key={p.id} value={p.id.toString()}>
                                             {p.nom}
@@ -110,13 +104,13 @@ export default function Edit({ mairie, communes, provinces, arrondissements }: P
                         </div>
 
                         {/* Commune */}
-                        <div>
+                        <div className="space-y-2">
                             <Label>Commune</Label>
                             <Select value={data.commune_id} onValueChange={(value) => setData('commune_id', value)}>
-                                <SelectTrigger>
+                                <SelectTrigger className="rounded-none">
                                     <SelectValue placeholder="Choisir une commune" />
                                 </SelectTrigger>
-                                <SelectContent>
+                                <SelectContent className="rounded-none">
                                     {communesFiltered.map((c) => (
                                         <SelectItem key={c.id} value={c.id.toString()}>
                                             {c.nom}
@@ -128,13 +122,13 @@ export default function Edit({ mairie, communes, provinces, arrondissements }: P
                         </div>
 
                         {/* Arrondissement */}
-                        <div>
+                        <div className="space-y-2">
                             <Label>Arrondissement</Label>
                             <Select value={data.arrondissement_id} onValueChange={(value) => setData('arrondissement_id', value)}>
-                                <SelectTrigger>
+                                <SelectTrigger className="rounded-none">
                                     <SelectValue placeholder="Choisir un arrondissement" />
                                 </SelectTrigger>
-                                <SelectContent>
+                                <SelectContent className="rounded-none">
                                     {arrondissementsFiltered.map((a) => (
                                         <SelectItem key={a.id} value={a.id.toString()}>
                                             {a.nom}
@@ -147,7 +141,7 @@ export default function Edit({ mairie, communes, provinces, arrondissements }: P
                     </div>
 
                     {/* Adresse complète */}
-                    <div>
+                    <div className="space-y-2">
                         <Label htmlFor="adresse_complete">Adresse complète</Label>
                         <Input
                             id="adresse_complete"
@@ -156,24 +150,24 @@ export default function Edit({ mairie, communes, provinces, arrondissements }: P
                                 communes.find((c) => c.id.toString() === data.commune_id)?.nom || ''
                             } - ${arrondissements.find((a) => a.id.toString() === data.arrondissement_id)?.nom || ''}`}
                             readOnly
-                            className="mt-1 block w-full bg-gray-100 dark:bg-gray-800"
+                            className="rounded-none bg-gray-200"
                         />
                     </div>
 
                     {/* Description courte */}
-                    <div>
+                    <div className="space-y-2">
                         <Label htmlFor="description_courte">Description courte</Label>
                         <Textarea
                             id="description_courte"
                             value={data.description_courte}
                             onChange={(e) => setData('description_courte', e.target.value)}
-                            className="mt-1 block w-full"
+                            className="rounded-none"
                         />
                         {errors.description_courte && <div className="mt-1 text-red-500">{errors.description_courte}</div>}
                     </div>
 
                     <div className="mb-8 flex justify-end">
-                        <Button type="submit" disabled={processing} className="w-full sm:w-[200px]">
+                        <Button type="submit" disabled={processing} className="w-full bg-blue-600 hover:bg-blue-700 sm:w-[200px]">
                             <Save className="mr-2 h-4 w-4" />
                             Mettre à jour
                         </Button>
