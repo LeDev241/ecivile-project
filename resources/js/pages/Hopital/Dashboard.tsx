@@ -50,19 +50,19 @@ export default function HopitalDashboard({
                         icon={FolderPlus}
                         title="Total déclarations"
                         value={declarationsCount}
-                        bgColor="bg-gradient-to-br from-indigo-500 to-blue-500 shadow-lg"
+                        bgColor="bg-gradient-to-br from-indigo-500 to-blue-500 "
                     />
                     <StatCard
                         icon={Users}
                         title="Derniers 7 jours"
                         value={newDeclarationsCount}
-                        bgColor="bg-gradient-to-br from-purple-500 to-indigo-500 shadow-lg"
+                        bgColor="bg-gradient-to-br from-green-500 to-teal-500 "
                     />
                     <StatCard
                         icon={Users}
                         title="Agent le plus actif"
                         value={mostActiveAgent || 'Aucun'}
-                        bgColor="bg-gradient-to-br from-green-500 to-teal-500 shadow-lg"
+                        bgColor="bg-gradient-to-br from-purple-500 to-indigo-500 "
                     />
                 </div>
 

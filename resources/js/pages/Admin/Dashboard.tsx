@@ -20,31 +20,35 @@ export default function Dashboard({ mairiesCount, hopitauxCount, usersCount, rec
 
                 <div className="h-auto overflow-hidden rounded-xl border border-sidebar-border/70 p-4 md:min-h-min dark:border-sidebar-border">
                     <h3 className="mb-4 text-lg font-semibold text-gray-800 dark:text-white">Faire une action</h3>
-                    <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                        <Link href={route('admin.mairies.create')}>
-                            <Button className="w-full">
-                                <Plus />
-                                Créer une nouvelle mairies
+                    <div className="flex  gap-4">
+                        <div className='flex flex-col gap-4'>
+                            <Button asChild className="py-6">
+                                <Link href={route('admin.mairies.create')}>
+                                    <Plus />
+                                    Créer une nouvelle mairies
+                                </Link>
                             </Button>
-                        </Link>
-                        <Link href={route('admin.mairies.index')}>
-                            <Button className="w-full border dark:border-white" variant="ghost">
-                                <Plus />
-                                Gestionnaire des mairies
+                            <Button asChild className="py-6" variant="outline">
+                                <Link href={route('admin.mairies.index')}>
+                                    <Plus />
+                                    Gestionnaire des mairies
+                                </Link>
                             </Button>
-                        </Link>
-                        <Link href={route('admin.hopitaux.create')}>
-                            <Button className="w-full">
-                                <Plus />
-                                Créer un nouvel hopital
+                        </div>
+                        <div className='flex flex-col gap-4'>
+                            <Button asChild className="py-6">
+                                <Link href={route('admin.hopitaux.create')}>
+                                    <Plus />
+                                    Créer un nouvel hopital
+                                </Link>
                             </Button>
-                        </Link>
-                        <Link href={route('admin.hopitaux.index')}>
-                            <Button className="w-full border dark:border-white" variant="ghost">
-                                <Plus />
-                                Gestionnaire des hopitaux
+                            <Button asChild className="py-6" variant="outline">
+                                <Link href={route('admin.hopitaux.index')}>
+                                    <Plus />
+                                    Gestionnaire des hopitaux
+                                </Link>
                             </Button>
-                        </Link>
+                        </div>
                     </div>
                 </div>
 

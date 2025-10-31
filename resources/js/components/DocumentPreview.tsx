@@ -1,5 +1,6 @@
 import { FileText, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { Button } from './ui/button';
 
 interface Props {
     path?: string | null | File;
@@ -36,38 +37,34 @@ export default function DocumentPreview({ path, label }: Props) {
                 <button
                     type="button"
                     onClick={openPreview}
-                    className="mt-1 flex items-center gap-2 rounded-md bg-blue-50 px-3 py-1 text-blue-700 hover:bg-blue-100 dark:bg-blue-900/30 dark:text-blue-300 dark:hover:bg-blue-800 transition"
+                    className="mt-1 flex items-center gap-2 rounded-md bg-blue-50 px-3 py-1 text-blue-700 transition hover:bg-blue-100 dark:bg-blue-900/30 dark:text-blue-300 dark:hover:bg-blue-800"
                 >
                     <FileText className="h-4 w-4" />
                     <span>Voir le document</span>
                 </button>
             ) : (
-                <p className="mt-1 text-gray-500 dark:text-gray-400 italic">Non fourni</p>
+                <p className="mt-1 text-gray-500 italic dark:text-gray-400">Non fourni</p>
             )}
 
             {/* Modale */}
             {previewUrl && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
-                    <div className="relative w-full max-w-5xl h-[90vh] bg-white dark:bg-gray-900 rounded-xl shadow-2xl overflow-hidden animate-fadeIn">
+                    <div className="animate-fadeIn relative h-[90vh] w-full max-w-5xl overflow-hidden rounded-xl bg-white shadow-2xl dark:bg-gray-900">
                         {/* Barre de titre */}
-                        <div className="flex items-center justify-between bg-gray-100 dark:bg-gray-800 px-4 py-2 border-b border-gray-200 dark:border-gray-700">
-                            <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-100">{label}</h3>
-                            <button
+                        <div className="flex items-center justify-between bg-black/80 px-4 py-1">
+                            <h3 className="text-sm font-semibold text-gray-100">{label}</h3>
+                            <Button
+                                size={'sm'}
                                 onClick={closePreview}
-                                className="inline-flex items-center rounded-md bg-red-500/80 px-3 py-1 text-sm font-medium text-white hover:bg-red-600 transition"
+                                className="flex h-8 w-8 items-center justify-center rounded-full bg-destructive p-0 font-semibold hover:bg-destructive/90"
                             >
-                                <X className="mr-1 h-4 w-4" />
-                                Fermer
-                            </button>
+                                <X className="h-4 w-4" />
+                            </Button>
                         </div>
 
                         {/* Contenu du document */}
                         <div className="h-full w-full">
-                            <iframe
-                                src={previewUrl}
-                                className="h-full w-full"
-                                title={`Aperçu - ${label}`}
-                            />
+                            <iframe src={previewUrl} className="h-full w-full" title={`Aperçu - ${label}`} />
                         </div>
 
                         <div className="absolute bottom-2 w-full text-center text-xs text-gray-600 dark:text-gray-400">

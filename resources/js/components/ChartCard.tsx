@@ -10,7 +10,7 @@ interface ChartCardProps {
 export default function ChartCard({ title, subtitle, children, icon: Icon }: ChartCardProps) {
     return (
         <div className="overflow-hidden rounded-xl border shadow-sm transition-shadow duration-300 hover:shadow-md">
-            <div className="border-b   px-6 py-4">
+            <div className="border-b px-6 py-4">
                 <div className="flex items-center space-x-3">
                     {Icon && (
                         <div className="rounded-lg bg-blue-100 p-2">
