@@ -5,8 +5,6 @@ import { AdminPageProps } from '@/types/types';
 import { Head, Link } from '@inertiajs/react';
 import { CircleUserIcon, Hospital, Landmark, MapPin, Plus } from 'lucide-react';
 
-
-
 export default function Dashboard({ mairiesCount, hopitauxCount, usersCount, recentEntities }: AdminPageProps) {
     return (
         <AdminLayout>
@@ -20,35 +18,31 @@ export default function Dashboard({ mairiesCount, hopitauxCount, usersCount, rec
 
                 <div className="h-auto overflow-hidden rounded-xl border border-sidebar-border/70 p-4 md:min-h-min dark:border-sidebar-border">
                     <h3 className="mb-4 text-lg font-semibold text-gray-800 dark:text-white">Faire une action</h3>
-                    <div className="flex  gap-4">
-                        <div className='flex flex-col gap-4'>
-                            <Button asChild className="py-6">
-                                <Link href={route('admin.mairies.create')}>
-                                    <Plus />
-                                    Créer une nouvelle mairies
-                                </Link>
-                            </Button>
-                            <Button asChild className="py-6" variant="outline">
-                                <Link href={route('admin.mairies.index')}>
-                                    <Plus />
-                                    Gestionnaire des mairies
-                                </Link>
-                            </Button>
-                        </div>
-                        <div className='flex flex-col gap-4'>
-                            <Button asChild className="py-6">
-                                <Link href={route('admin.hopitaux.create')}>
-                                    <Plus />
-                                    Créer un nouvel hopital
-                                </Link>
-                            </Button>
-                            <Button asChild className="py-6" variant="outline">
-                                <Link href={route('admin.hopitaux.index')}>
-                                    <Plus />
-                                    Gestionnaire des hopitaux
-                                </Link>
-                            </Button>
-                        </div>
+                    <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+                        <Button asChild className="py-6">
+                            <Link href={route('admin.mairies.create')}>
+                                <Plus />
+                                Créer une nouvelle mairies
+                            </Link>
+                        </Button>
+                        <Button asChild className="py-6" variant="outline">
+                            <Link href={route('admin.mairies.index')}>
+                                <Plus />
+                                Gestionnaire des mairies
+                            </Link>
+                        </Button>
+                        <Button asChild className="py-6">
+                            <Link href={route('admin.hopitaux.create')}>
+                                <Plus />
+                                Créer un nouvel hopital
+                            </Link>
+                        </Button>
+                        <Button asChild className="py-6" variant="outline">
+                            <Link href={route('admin.hopitaux.index')}>
+                                <Plus />
+                                Gestionnaire des hopitaux
+                            </Link>
+                        </Button>
                     </div>
                 </div>
 
